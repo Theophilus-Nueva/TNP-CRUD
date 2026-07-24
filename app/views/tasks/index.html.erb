@@ -1,0 +1,33 @@
+<div class="tasks-container">
+  <div class="tasks-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div>
+      <h1 class="tasks-title"><%= @filter == "all" ? "All Tasks" : "My Tasks" %></h1>
+      <div class="tasks-actions">
+        <%= link_to "My Tasks", tasks_path(filter: "my_tasks"), class: "btn-tasks btn-my-tasks #{@filter == 'my_tasks' ? 'active' : ''}" %>
+        <%= link_to "All Tasks", tasks_path(filter: "all"), class: "btn-tasks btn-all-tasks #{@filter == 'all' ? 'active' : ''}" %>
+        <%= link_to "+", new_task_path, class: "btn-tasks btn-add-task", title: "Add a task" %>
+      </div>
+    </div>
+    
+    <%= button_to "Log out", session_path, method: :delete, class: "btn-secondary", style: "border: none; cursor: pointer; color: var(--error-color); text-decoration: underline;" %>
+  </div>
+
+  <div class="tasks-list">
+    <% @tasks.each do |task| %>
+      <div class="task-card">
+        <h2 class="task-title"><%= task.title %></h2>
+        <p class="task-description"><%= task.description %></p>
+        <div class="task-meta">
+          <span class="task-status">Status: <strong><%= task.status %></strong></span>
+          <span class="task-assignee">Assigned to: <strong><%= task.user.username %></strong></span>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if @tasks.empty? %>
+      <div class="task-card">
+        <p style="text-align:center; color: var(--text-secondary);">No tasks found.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

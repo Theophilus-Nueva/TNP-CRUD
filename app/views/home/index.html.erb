@@ -1,0 +1,25 @@
+<div class="dashboard-container">
+  <% if authenticated? %>
+    <header class="dashboard-header">
+      <h1>Welcome back!</h1>
+      <p>You are logged in as <strong><%= Current.user.email_address %></strong></p>
+      <%= button_to "Log out", session_path, method: :delete, class: "btn-secondary" %>
+    </header>
+    
+    <main class="dashboard-content">
+      <div class="card">
+        <h2>Your Dashboard</h2>
+        <p>This is your personal space. Start building your amazing application from here.</p>
+      </div>
+    </main>
+  <% else %>
+    <header class="dashboard-header">
+      <h1>Welcome to the App</h1>
+      <p>Please log in or sign up to continue.</p>
+      <div class="auth-buttons">
+        <%= link_to "Log in", new_session_path, class: "btn-primary" %>
+        <%= link_to "Sign up", sign_up_path, class: "btn-secondary" %>
+      </div>
+    </header>
+  <% end %>
+</div>
